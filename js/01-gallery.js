@@ -33,7 +33,11 @@ function onCloseModal(event) {
 
 //Main
 
-const modal = basicLightbox.create(`<img>`);
+const modal = basicLightbox.create(`<img>`, {
+  onShow: () => refs.galleryDiv.addEventListener("keydown", onCloseModal),
+  onClose: () => refs.galleryDiv.removeEventListener("keydown", onCloseModal),
+});
+
 const refs = {
   galleryDiv: document.querySelector("div.gallery"),
   modalElement: modal.element().querySelector("img"),
@@ -47,5 +51,3 @@ galleryItems.map((item) =>
 );
 
 refs.galleryDiv.addEventListener("click", onOpenModal);
-
-refs.galleryDiv.addEventListener("keydown", onCloseModal);
